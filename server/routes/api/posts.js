@@ -38,9 +38,14 @@ router.delete('/:id', async (req, res) => {
 async function loadPostsCollection() {
     const client = await mongodb.MongoClient.connect 
     (uri, {
-        useNewUrlParser: true
-    });
+        serverApi: {
+          version: mongodb.ServerApiVersion.v1,
+          strict: true,
+          deprecationErrors: true,
+        }
+      });
     return client.db('vue_express').collection('posts');
 }
 
 module.exports = router;
+
